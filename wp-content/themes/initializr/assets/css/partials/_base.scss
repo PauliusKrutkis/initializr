@@ -1,0 +1,76 @@
+@import 'mixins';
+
+@include selector {
+    background-color: $secondary-color;
+    color: #fff;
+}
+
+@include placeholder {
+    color: $secondary-color;
+    opacity: 1;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+a {
+    -webkit-tap-highlight-color: transparent;
+    &:active,
+    &:hover,
+    &:focus {
+        outline: 0;
+    }
+
+}
+
+img {
+    border: 0;
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+table {
+    table-layout: fixed;
+}
+
+textarea {
+    -webkit-appearance: none;
+}
+
+table {
+    border: 1px solid $primary-color;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+    width: 100%;
+    tr {
+        border: 1px solid $primary-color;
+    }
+    th,
+    td {
+        padding: 10px;
+    }
+}
+
+.page-content {
+    //overflow-x: hidden;
+}

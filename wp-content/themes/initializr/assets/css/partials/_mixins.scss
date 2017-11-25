@@ -1,0 +1,190 @@
+@import "variables";
+
+@mixin appearance($opt) {
+    -webkit-appearance: $opt;
+    -moz-appearance: $opt;
+}
+
+@mixin filter($opt) {
+    -webkit-filter: $opt;
+    filter: $opt;
+}
+
+@mixin animation($opt) {
+    -webkit-animation: $opt;
+    animation: $opt;
+}
+
+@mixin flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+@mixin transform($opt) {
+    -webkit-transform: $opt;
+    -moz-transform: $opt;
+    -ms-transform: $opt;
+    -o-transform: $opt;
+    transform: $opt;
+}
+
+@mixin placeholder {
+    ::-webkit-input-placeholder {
+        @content
+    }
+    :-moz-placeholder {
+        @content
+    }
+    ::-moz-placeholder {
+        @content
+    }
+    :-ms-input-placeholder {
+        @content
+    }
+}
+
+@mixin selector {
+    ::-moz-selection {
+        @content;
+        text-shadow: none;
+    }
+    ::selection {
+        @content;
+        text-shadow: none;
+    }
+}
+
+@mixin cover {
+    background-size: cover;
+    background-position: center;
+}
+
+@mixin clearfix {
+    & {
+        *zoom: 1;
+    }
+    &:after, &:before {
+        content: '';
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin hidden {
+    display: none $i;
+}
+
+@mixin vhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    position: absolute;
+    padding: 0;
+    width: 1px;
+}
+
+@mixin valign {
+    &:before {
+        content: '';
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    & > * {
+        vertical-align: middle;
+        display: inline-block;
+    }
+
+}
+
+@mixin menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+@mixin full-width {
+    width: 100vw;
+    margin-left: -50vw;
+    left: 50%;
+    position: relative;
+}
+
+@mixin clearfix {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    & {
+        *zoom: 1;
+    }
+}
+
+@mixin break($point) {
+    @if $point == desktop {
+        @media(max-width: #{$desktop-min-width}) {
+            @content
+        }
+    }
+    @if $point == tablet-max {
+        @media(max-width: #{$tablet-max-width}) {
+            @content
+        }
+    }
+    @if $point == tablet-min {
+        @media(max-width: #{$tablet-min-width}) {
+            @content
+        }
+    }
+    @if $point == mobile-max {
+        @media(max-width: #{$mobile-max-width}) {
+            @content
+        }
+    }
+    @if $point == mobile-min {
+        @media(max-width: #{$mobile-min-width}) {
+            @content
+        }
+    }
+}
+
+@mixin break-until($point) {
+    @if $point == desktop {
+        @media(min-width: #{$desktop-min-width + 1}) {
+            @content
+        }
+    }
+    @if $point == tablet-max {
+
+        @media(min-width: #{$tablet-max-width + 1}) {
+            @content
+        }
+    }
+    @if $point == tablet-min {
+        @media(min-width: #{$tablet-min-width + 1}) {
+            @content
+        }
+    }
+    @if $point == mobile-max {
+        @media(min-width: #{$mobile-max-width + 1}) {
+            @content
+        }
+    }
+    @if $point == mobile-min {
+        @media(min-width: #{$mobile-min-width + 1}) {
+            @content
+        }
+    }
+}
