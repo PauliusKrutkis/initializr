@@ -27,6 +27,6 @@
 
     <?php get_template_part('/partials/sidebar') ?>
 
-</div> <!-- .container -->
+</div>
 
 <?php get_footer(); ?>

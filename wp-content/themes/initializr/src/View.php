@@ -23,8 +23,12 @@ class View
 
     public function get($key)
     {
+        if ( ! $this->values) {
+            return '';
+        }
+
         if ( ! array_key_exists($key, $this->values)) {
-            throw new \Exception("{$key} is not set.");
+            return '';
         }
 
         return $this->values[$key];
@@ -37,6 +41,15 @@ class View
         }
 
         include $this->getFilaPath();
+    }
+
+    public function getHtml()
+    {
+        ob_start();
+
+        $this->output();
+
+        return ob_get_clean();
     }
 
     public function getFilaPath()

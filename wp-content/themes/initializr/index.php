@@ -2,12 +2,13 @@
 
 <div class="container">
 
-    <?php
-    while (have_posts()) {
-        the_post();
-        get_template_part('/partials/article');
-    }
-    ?>
+    <?php while (have_posts()): the_post(); ?>
+
+        <?php the_content(); ?>
+
+    <?php endwhile; ?>
+
+    <?php get_template_part('partials/sidebar') ?>
 
 </div>
 

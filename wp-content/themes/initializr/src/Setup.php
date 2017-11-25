@@ -5,35 +5,40 @@ namespace App;
 
 class Setup
 {
-    protected $styles;
-    protected $scripts;
-    protected $localize;
-    protected $widgetAreas;
-    protected $logo;
-    protected $excerpt;
-    protected $imageSizes;
-    protected $navMenus;
-    protected $postTypes;
-    protected $taxonomies;
-    protected $shortcodes;
-    protected $shortcodeDir;
+    private $styles;
+    private $scripts;
+    private $localize;
+    private $widgetAreas;
+    private $logo;
+    private $excerpt;
+    private $imageSizes;
+    private $navMenus;
+    private $postTypes;
+    private $taxonomies;
+    private $shortcodes;
+    private $shortcodeDir;
+    private $helper;
+    private $config;
 
     function __construct()
     {
-        Config::load();
+        $this->helper = new Helper();
+        $this->config = new Config();
 
-        $this->styles       = Config::get('enqueue')['styles'];
-        $this->scripts      = Config::get('enqueue')['scripts'];
-        $this->localize     = Config::get('enqueue')['localize'];
-        $this->widgetAreas  = Config::get('general')['widget-areas'];
-        $this->imageSizes   = Config::get('image-sizes');
-        $this->logo         = Config::get('general')['logo'];
-        $this->excerpt      = Config::get('general')['excerpt'];
-        $this->navMenus     = Config::get('general')['nav-menus'];
-        $this->postTypes    = Config::get('post-types');
-        $this->taxonomies   = Config::get('taxonomies');
-        $this->shortcodes   = Config::get('shortcodes');
-        $this->shortcodeDir = Config::get('general')['shortcode-dir'];
+        $this->config->load();
+
+        $this->styles       = $this->config->get('enqueue')['styles'];
+        $this->scripts      = $this->config->get('enqueue')['scripts'];
+        $this->localize     = $this->config->get('enqueue')['localize'];
+        $this->widgetAreas  = $this->config->get('general')['widget-areas'];
+        $this->imageSizes   = $this->config->get('image-sizes');
+        $this->logo         = $this->config->get('general')['logo'];
+        $this->excerpt      = $this->config->get('general')['excerpt'];
+        $this->navMenus     = $this->config->get('general')['nav-menus'];
+        $this->postTypes    = $this->config->get('post-types');
+        $this->taxonomies   = $this->config->get('taxonomies');
+        $this->shortcodes   = $this->config->get('shortcodes');
+        $this->shortcodeDir = $this->config->get('general')['shortcode-dir'];
 
         $this->addActions();
         $this->addImageSizes();
@@ -48,10 +53,25 @@ class Setup
         $localize = apply_filters('theme_localize', $this->localize);
 
         foreach ($styles as $name => $options) {
+            $defaults = [
+                'src' => null,
+            ];
+
+            $options = wp_parse_args($options, $defaults);
+
             wp_enqueue_style($name, $options['src']);
         }
 
         foreach ($scripts as $name => $options) {
+            $defaults = [
+                'src'       => null,
+                'deps'      => null,
+                'ver'       => null,
+                'in-footer' => true
+            ];
+
+            $options = wp_parse_args($options, $defaults);
+
             wp_enqueue_script(
                 $name,
                 $options['src'],
@@ -140,9 +160,17 @@ class Setup
 
     public function addSlugOptions()
     {
+        if (function_exists('icl_object_id')) {
+            return;
+        }
+
         foreach ($this->postTypes as $name => $args) {
             if (isset($_POST[$name . '_slug'])) {
                 update_option($name . '_slug', sanitize_title_with_dashes($_POST[$name . '_slug']));
+            }
+
+            if (isset($args['no-single']) && $args['no-single']) {
+                continue;
             }
 
             add_settings_field(

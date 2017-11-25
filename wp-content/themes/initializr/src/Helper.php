@@ -32,20 +32,6 @@ class Helper
         return $thumbUrl;
     }
 
-    public static function getPostTerms($taxonomy)
-    {
-        $terms     = get_the_terms(get_the_ID(), $taxonomy);
-        $termNames = [];
-
-        if ($terms) {
-            foreach ($terms as $term) {
-                $termNames[] = $term->name;
-            }
-        }
-
-        return implode(', ', $termNames);
-    }
-
     public static function dump($data)
     {
         if (is_array($data)) {
@@ -69,15 +55,13 @@ class Helper
         die;
     }
 
-    public static function getTaxLabel($taxonomy)
+    public static function asset($file)
     {
-        return get_taxonomy($taxonomy)->label;
+        return Config::get('general')['asset-uri'] . '/' . $file;
     }
 
-    public static function getTaxSlug($taxonomy)
+    public static function file($file)
     {
-        $label = self::getTaxLabel($taxonomy);
-
-        return self::slugify($label);
+        return get_template_directory() . '/' . $file;
     }
 }

@@ -10,4 +10,5 @@ return [
     'excerpt'       => '...',
     'partial-dir'   => get_template_directory() . '/partials',
     'shortcode-dir' => get_template_directory() . '/partials/shortcodes',
+    'asset-uri'     => get_template_directory_uri() . '/assets'
 ];
