@@ -19,6 +19,8 @@ class View
     public function set($key, $value)
     {
         $this->values[$key] = $value;
+
+        return $this;
     }
 
     public function get($key)
