@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'article-thumbnail' => [
-        'width'  => 660,
-        'height' => 455,
-        'crop'   => true
+    'brand' => [
+        'width'  => 200,
+        'height' => 150,
+        'crop'   => false
     ]
 ];

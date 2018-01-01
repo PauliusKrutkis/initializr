@@ -5,3 +5,4 @@ foreach (glob(get_template_directory() . "/src/*.php") as $file) {
 }
 
 new App\Setup();
+new App\Theme();
