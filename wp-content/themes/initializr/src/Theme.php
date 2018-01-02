@@ -9,6 +9,13 @@ class Theme
     public function __construct()
     {
         $this->addOptionPage();
+        add_action('rest_api_init', [$this, 'registerQueryRoute']);
+    }
+
+    public function registerQueryRoute()
+    {
+        $controller = new WP_REST_MultiplePostType_Controller();
+        $controller->register_routes();
     }
 
     private function addOptionPage()
